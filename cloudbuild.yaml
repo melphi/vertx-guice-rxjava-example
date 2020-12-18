@@ -1,0 +1,16 @@
+steps:
+  # Plugin com.commercehub.gradle.plugin.avro:0.18.0 not compatible with gradle:6.1-jdk11,
+  # therefore the local wrapper is used.
+  - name: 'openjdk:11-jdk-slim'
+    args: ['./gradlew', 'test', 'installDist']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/backend-service:$SHORT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/backend-service:$SHORT_SHA']
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - run
+      - --filename=k8s
+      - --image=gcr.io/$PROJECT_ID/infologic-backend-service:$SHORT_SHA
+      - --location=us-east1-b
+      - --cluster=infologic-prod

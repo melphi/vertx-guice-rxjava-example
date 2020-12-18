@@ -1,0 +1,16 @@
+{
+ "namespace": "avro",
+ "type": "record",
+ "name": "RawResource",
+ "fields": [
+     {"name": "content", "type": ["string", "null"]},
+     {"name": "crawledOn", "type": ["long", "null"]},
+     {"name": "downloadSize", "type": ["int", "null"]},
+     {"name": "downloadTime", "type": ["long", "null"]},
+     {"name": "id", "type": "string"},
+     {"name": "properties", "type": [{"type": "map", "values": "string"}, "null"]},
+     {"name": "source", "type": ["string", "null"]},
+     {"name": "statusCode",  "type": ["int", "null"]},
+     {"name": "uri", "type": "string"}
+ ]
+}

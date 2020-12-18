@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-service
+  labels:
+    app: backend-service
+spec:
+  selector:
+    matchLabels:
+      app: backend-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend-service
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: your-pool
+      containers:
+      - name: backend-service
+        image: gcr.io/your-repo/backend-service
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "384Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+        env:
+          - name: APPLICATION_ELASTIC_URL
+            value: "http://elasticsearch:9200"
+          - name: APPLICATION_STORAGE_RAWRESOURCE_ERROR
+            value: "gs://bucket-error"
+          - name: APPLICATION_STORAGE_RAWRESOURCE_INBOUND
+            value: "gs://bucket-inbound"
+          - name: APPLICATION_STORAGE_RAWRESOURCE_OUTBOUND
+            value: "gs://bucket-lake-rawresources"
