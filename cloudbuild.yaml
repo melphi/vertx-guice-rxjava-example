@@ -11,6 +11,6 @@ steps:
     args:
       - run
       - --filename=k8s
-      - --image=gcr.io/$PROJECT_ID/infologic-backend-service:$SHORT_SHA
+      - --image=gcr.io/$PROJECT_ID/backend-service:$SHORT_SHA
       - --location=us-east1-b
-      - --cluster=infologic-prod
+      - --cluster=your-gke-cluster
