@@ -27,6 +27,7 @@ import org.apache.avro.specific.SpecificDatumWriter;
 import org.apache.avro.specific.SpecificRecord;
 import org.apache.tika.mime.MimeTypes;
 
+// TODO: Instead of reading the object fully use streams. This was postponed due GCS / Avro stream mapping issues.
 public abstract class AbstractGcsRepository<T extends SpecificRecord> {
   private static final String GS_PREFIX = "gs://";
 
